@@ -22,28 +22,29 @@ def generateRandomNumber():
 def gameRounds():
     randomNumber = generateRandomNumber()
     rounds = 0
-    for round in range(3):     # Gives 3 turns to each participant (the player and the computer)
+    while True:     # Executes the game till either the player or the computer wins the game
         rounds+=1
         print(f"**************** Round {rounds}: Player Turn ****************")
         playerTurn = int(input("Player, enter the number: "))
         if playerTurn == randomNumber:
-            print("You got the correct number!! ")
+            print("Congrats Player! You guessed the correct number!!")
+            break # Ends the game when the player wins
         elif randomNumber > playerTurn:
-            print("The number is greater than your guessing")
+            print("The number is greater than your guess")
         elif randomNumber < playerTurn:
-            print("The number is lesser than your guessing")
+            print("The number is lesser than your guess")
         
         print(f"**************** Round {rounds}: Computer Turn ****************")
         computerTurn = random.randint(1, 100)
         print(f"Computer's guess: {computerTurn}")
         if randomNumber == computerTurn:
-            print("You got the correct number!! ")
-        elif randomNumber > computerTurn:
-            print("The number is greater than your guessing")
+            print("Congrats computer! You guessed the correct number!! ")
+            break # Ends the game when the computer wins
+        elif randomNumber > computerTurn or randomNumber > playerTurn:
+            print("The number is greater than your guess")
+
         elif randomNumber < computerTurn:
-            print("The number is lesser than your guessing")
-    
-    print(f"Game over the number was {randomNumber}")
+            print("The number is lesser than your guess")
 
 gameRounds()
 # def playerGuess():
