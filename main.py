@@ -30,5 +30,7 @@ def game_rounds():
             print("The number is greater than your guess")
         if random_number < computer_turn:
             print("The number is lesser than your guess")
-
-game_rounds()
+# Código que quieres ejecutar cuando el script se ejecute directamente, pero no cuando se importe como un módulo
+# en otro script
+if __name__ == '__main__':
+    game_rounds()
