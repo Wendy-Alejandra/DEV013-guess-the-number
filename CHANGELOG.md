@@ -7,6 +7,7 @@ The use of randint and how the random number change when calling the function di
 the same when calling the function but stored in a variable.
 The use of if __name__ == '__main__': code to check if the script is being directly executed and not imported when
 testing in the test module.
+The use of string formatting f""
 
 ### Added
 
