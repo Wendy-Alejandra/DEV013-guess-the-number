@@ -2,7 +2,7 @@
 
 import random
 
-def menu_game():
+def welcome_to_game():
     """Welcomes and asks for player's name"""
     player_name = input("Welcome to Guess the number game. Please enter your name: ")
     return player_name
@@ -27,7 +27,6 @@ def computer_guess():
     guess = random.randint(1, 100)
     return guess
 
-# Game rounds
 def player_entry(player_name):
     """Player entries"""
     try:
@@ -36,40 +35,50 @@ def player_entry(player_name):
         print("You should enter numbers only, try again\n")
     return player_guess
 
-def game_rounds():
-    """Logic game, gives the option to continue or finish the game once someone wins"""
-    continue_game = ""
-    # while continue_game == "y":
+def play_again():
+    """Asks the player if wants to play again"""
+    choice = input("Would you like to play again? (y/n): ").lower()
+    return choice == 'y' # this function returns a boolean value, if true then it goes back to
+                         # game_rounds() and starts a new game round
+
+def play_game():
+    """Plays a single round of the game"""
     player = []
     computer = []
     generated_number = generate_random_number()
     print(generated_number)
-    player_name = menu_game()
+    player_name = welcome_to_game()
     rounds = 0
-    while True:     # Executes the game till either the player or the computer wins the game
-        rounds+=1
-        print(f"***************** Round {rounds}*****************\n")
+    while True:
+        rounds += 1
+        print(f"***************** Round {rounds} *****************\n")
         player_guess = player_entry(player_name)
         if guess_validation(player_guess, generated_number):
             player.append(player_guess)
             print(f"\nCongrats {player_name}! {generated_number} was the correct number!!")
-            print(f"You had {rounds} attemps as follows: {', '.join(map(str, player))} ")
-            continue_game = input("\nWould you like to continue the game? y/n ")
-            break # Ends the game when the player wins
+            print(f"You had {rounds} attempts as follows: {', '.join(map(str, player))} ")
+            break
         else:
             player.append(player_guess)
-        # Stores computer_guess() in a variable comp_guess inside the loop so it is not regenerated
-        # every time the function is called and it's not static if stored ouside the loop
         comp_guess = computer_guess()
         print(f"Computer's guess: {comp_guess}")
         if guess_validation(comp_guess, generated_number):
             computer.append(comp_guess)
             print(f"Congrats computer! {generated_number} was the correct number!! ")
-            print(f"You had {rounds} attemps as follows: {', '.join(map(str, computer))}")
-            continue_game = input("\nWould you like to continue the game? y/n ")
-            # if continue_game == "y" or continue_game == "Y":
-            break # Ends the game when the computer wins
+            print(f"You had {rounds} attempts as follows: {', '.join(map(str, computer))}")
+            break
         else:
             computer.append(comp_guess)
+
+def game_rounds():
+    """Logic game, gives the option to continue or finish the game once someone wins"""
+    while True:
+        play_game()
+        if not play_again():    # If choice in play_again() is n then it returns False
+            print("Thank you for playing!") # and ends the game
+            break
+        else:
+            print("\nRestarting the game...\n")
+
 if __name__ == '__main__':
     game_rounds()
