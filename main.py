@@ -12,6 +12,19 @@ def generate_random_number():
     generated_number = random.randint(1, 100)
     return generated_number
 
+def player_entry(player_name):
+    """Player entries"""
+    try:
+        player_guess = int(input(f"{player_name}, please enter a number between 1-100: "))
+    except ValueError:
+        print("You should enter numbers only, try again\n")
+    return player_guess
+
+def computer_guess():
+    """Generates the guessing number for the computer"""
+    guess = random.randint(1, 100)
+    return guess
+
 def guess_validation(guess, generated_number):
     """Evaluates if the number entered by the player or the computer, it gives hints as well"""
     if guess == generated_number:
@@ -22,24 +35,15 @@ def guess_validation(guess, generated_number):
         print("The number is lesser than your guess\n")
     return False
 
-def computer_guess():
-    """Generates the guessing number for the computer"""
-    guess = random.randint(1, 100)
-    return guess
-
-def player_entry(player_name):
-    """Player entries"""
-    try:
-        player_guess = int(input(f"{player_name}, please enter a number between 1-100: "))
-    except ValueError:
-        print("You should enter numbers only, try again\n")
-    return player_guess
-
-def play_again():
-    """Asks the player if wants to play again"""
-    choice = input("Would you like to play again? (y/n): ").lower()
-    return choice == 'y' # this function returns a boolean value, if true then it goes back to
-                         # game_rounds() and starts a new game round
+def game_rounds():
+    """Logic game, gives the option to continue or finish the game once someone wins"""
+    while True:
+        play_game()
+        if not play_again():    # If choice in play_again() is n then it returns False
+            print("Thank you for playing!") # and ends the game
+            break
+        else:
+            print("\nRestarting the game...\n")
 
 def play_game():
     """Plays a single round of the game"""
@@ -70,15 +74,11 @@ def play_game():
         else:
             computer.append(comp_guess)
 
-def game_rounds():
-    """Logic game, gives the option to continue or finish the game once someone wins"""
-    while True:
-        play_game()
-        if not play_again():    # If choice in play_again() is n then it returns False
-            print("Thank you for playing!") # and ends the game
-            break
-        else:
-            print("\nRestarting the game...\n")
+def play_again():
+    """Asks the player if wants to play again"""
+    choice = input("Would you like to play again? (y/n): ").lower()
+    return choice == 'y' # this function returns a boolean value, if true then it goes back to
+                         # game_rounds() and starts a new game round
 
 if __name__ == '__main__':
     game_rounds()
