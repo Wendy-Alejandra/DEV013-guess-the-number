@@ -2,11 +2,9 @@
 
 import random
 
-# Menu to start or reset the game
 def menu_game():
     """Welcomes and asks for player's name"""
-    print("Welcome to Guess the number game")
-    player_name = input("Please enter your name: ")
+    player_name = input("Welcome to Guess the number game. Please enter your name: ")
     return player_name
 
 def generate_random_number():
@@ -30,6 +28,14 @@ def computer_guess():
     return guess
 
 # Game rounds
+def player_entry(player_name):
+    """Player entries"""
+    try:
+        player_guess = int(input(f"{player_name}, please enter a number between 1-100: "))
+    except ValueError:
+        print("You should enter numbers only, try again\n")
+    return player_guess
+
 def game_rounds():
     """Logic game, gives the option to continue or finish the game once someone wins"""
     continue_game = ""
@@ -43,20 +49,17 @@ def game_rounds():
     while True:     # Executes the game till either the player or the computer wins the game
         rounds+=1
         print(f"***************** Round {rounds}*****************\n")
-        try:
-            player_guess = int(input(f"{player_name}, please enter a number between 1-100: "))
-        except ValueError:
-            print("You should enter numbers only, try again\n")
+        player_guess = player_entry(player_name)
         if guess_validation(player_guess, generated_number):
             player.append(player_guess)
             print(f"\nCongrats {player_name}! {generated_number} was the correct number!!")
-            print(f"You had {rounds} attemps: {', '.join(map(str, player))} ")
+            print(f"You had {rounds} attemps as follows: {', '.join(map(str, player))} ")
             continue_game = input("\nWould you like to continue the game? y/n ")
             break # Ends the game when the player wins
         else:
             player.append(player_guess)
-        # Store computer_guess() in a variable comp_guess inside the loop so it is not regenerated every time the function is called and it's not static if stored ouside
-        # the loop
+        # Stores computer_guess() in a variable comp_guess inside the loop so it is not regenerated
+        # every time the function is called and it's not static if stored ouside the loop
         comp_guess = computer_guess()
         print(f"Computer's guess: {comp_guess}")
         if guess_validation(comp_guess, generated_number):
@@ -68,6 +71,5 @@ def game_rounds():
             break # Ends the game when the computer wins
         else:
             computer.append(comp_guess)
-        
 if __name__ == '__main__':
     game_rounds()
