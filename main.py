@@ -17,6 +17,7 @@ def player_entry(player_name):
     try:
         player_guess = int(input(f"{player_name}, please enter a number between 1-100: "))
     except ValueError:
+        player_guess = None
         print("You should enter numbers only, try again\n")
     return player_guess
 
