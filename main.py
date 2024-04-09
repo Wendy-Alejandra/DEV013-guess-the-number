@@ -34,7 +34,7 @@ def guess_validation(guess, generated_number):
     if generated_number > guess:
         print("The number is greater than your guess\n")
     else:
-        print("The number is lesser than your guess\n")
+        print("The number is less than your guess\n")
     return False
 
 def game_rounds():
@@ -52,7 +52,6 @@ def play_game():
     player = []
     computer = []
     generated_number = generate_random_number()
-    print(generated_number)
     player_name = welcome_to_game()
     rounds = 0
     while True:
